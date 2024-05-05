@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>www</h2>
+{% comment %} <a href = "{% url "notion_detail" page_id %}">kkk</a> {% endcomment %}
+
+{% for content in contents %}
+<p>{{content.title}}</p><br>
+<p>{{content.category}}</p><br>
+<p>{{content.creation_date}}</p><br>
+<a href="{% url "blog_dice:notion_detail" content.page_id %}">{{content.page_id}}</a>
+<hr>
+{% endfor %}
+{% endblock content %}

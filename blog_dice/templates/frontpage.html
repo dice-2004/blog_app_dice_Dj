@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block body %}
-<h2>www</h2>
-{% comment %} <a href = "{% url "notion_detail" page_id %}">kkk</a> {% endcomment %}
-{% endblock body %}
+
+{% block content %}
+<p>ここはfrontpage</p><br>
+<a href="{% url "blog_dice:page_list" %}">page_list</a><br>
+<a href="{% url "blog_dice:about_me" %}">about_me</a><br>
+<a href="{% url "blog_dice:product" %}">product</a><br>
+{% endblock content %}

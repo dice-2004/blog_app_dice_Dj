@@ -3,3 +3,4 @@ __pycache__
 s.html
 db.sqlite3
 config.ini
+history.log
