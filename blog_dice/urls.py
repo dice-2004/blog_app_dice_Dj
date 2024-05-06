@@ -6,10 +6,10 @@ app_name = 'blog_dice'
 TXT_LOG = "history.log"
 
 urlpatterns = [
-    path("",views.frontpage ,name = 'frontpage'),
-    path("about_me",views.about_me ,name='about_me'),
-    path("product",views.product ,name="product"),
-    path("page_list",views.page_list ,name = 'page_list'),
-    path("notion/<page_id>",views.notion_detail ,name = "notion_detail"),
-    path("notion",views.frontpage ,name = 'frontpage'),
+    path("",views.FrontpageView.as_view() ,name = 'frontpage'),
+    path("notion",views.FrontpageView.as_view() ,name = 'frontpage'),
+    path("about_me",views.About_meView.as_view() ,name='about_me'),
+    path("product",views.ProductView.as_view() ,name="product"),
+    path("page_list",views.Page_listView.as_view() ,name = 'page_list'),
+    path("notion/<page_id>",views.Notion_detailView.as_view() ,name = "notion_detail"),
 ]
