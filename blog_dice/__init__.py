@@ -1,6 +1,6 @@
 import configparser
 from notion_client import Client
-
+from logging import getLogger,DEBUG,FileHandler,ERROR,Formatter
 
 
 def initialise_app():
@@ -20,7 +20,9 @@ def get_DB_ID():
 
 def LOG():
     global TXT_LOG
+    global ERROR_LOG
     TXT_LOG = 'history.log'
+    ERROR_LOG = 'error.log'
     return TXT_LOG
 
 initialise_app()
