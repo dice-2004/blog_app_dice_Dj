@@ -7,3 +7,4 @@ def convert_date_format(date_string):
     local_time = utc_time.astimezone(tz.gettz('Asia/Tokyo'))
     formatted_date = local_time.strftime("%Y/%m/%d %H:%M:%S")
     return formatted_date
+
