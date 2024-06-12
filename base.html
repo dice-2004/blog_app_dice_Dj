@@ -1,17 +1,15 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "css/base.css" %}">
-    {% block head %}{% endblock head %}
-    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="base.css">
+
+    <title></title>
 </head>
 <body>
     <nav>
-        <div class="logo">
+        <div id="logo">
             <h4>title</h4>
         </div>
         <ul class="nav_links">
@@ -26,12 +24,27 @@
             <div class="line3"></div>
         </div>
     </nav>
+    <p class="box">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        test<br>
+        <!-- ここにfor文 -->
+
+
+    </p>
     <section>a</section>
+    <a  class = "return_top" href="#logo">＞</a>
 
-    {% block content %}{% endblock content %}
 
 
-    <script src="{% static "js/base.js" %}"></script>
+
+    <script src="base.js"></script>
 
 </body>
 </html>
