@@ -11,7 +11,7 @@
 
 
 body {
-    background-color: #2e302e;
+    background-color: #000000;
 }
 
 
@@ -20,11 +20,11 @@ nav {
     justify-content: space-around;
     align-items: center;
     min-height: 10vh;
-    background-color: #252830;
+    background-color: #282828;
 }
 
 
-.logo {
+#logo {
     color: white;
     font-size: 25px;
 }
@@ -67,19 +67,33 @@ div.list {
 .burger div {
     width: 25px;
     height: 3px;
-    background-color: black;
+    background-color: #000000;
     margin: 5px;
     transition: all 0.3s ease-in-out;
 }
 
 
 @media screen and (max-width: 1024px) {
+    /* タブレット */
     .nav_links {
         width: 55%;
     }
     nav {
         min-height: 12vh;
     }
+
+    p.box {
+        margin-left: 15%;
+        width: 70%;
+        padding: 15px;
+    }
+
+    body section{
+        margin-left: 15%;
+        width: 70%;
+        padding: 15px;
+    }
+
 }
 
 
@@ -91,7 +105,13 @@ div.list {
 
 
 @media screen and (max-width: 768px) {
+    /* スマホ */
 
+    p.box {
+        margin-left: 5%;
+        padding: 15px;
+        width: 90%;
+    }
     body {
         overflow-x: hidden;
     }
@@ -100,7 +120,7 @@ div.list {
         right: 0;
         height: 88vh;
         top: 12vh;
-        background-color: #252830;
+        background-color: #282828;
         flex-direction: column;
         align-items: center;
         width: 50%;
@@ -115,6 +135,14 @@ div.list {
     .burger {
         display: block;
     }
+
+    body section{
+        margin-left: 5%;
+        padding: 15px;
+        width: 90%;
+    }
+
+
 }
 
 
@@ -147,5 +175,70 @@ div.list {
 
 
 section {
-    height:  200vh;
+    height:  100vh;
+}
+
+
+.return_top {
+    background-color: white;
+    color: black;
+    font-size: 27px;
+    text-decoration: none;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 40px;
+    height: 40px;
+    border: solid thin;
+    border-radius: 50%;
+    display: grid;
+    justify-content: center;
+    transform: rotate(-90deg);
+    transition: all 0.3s ease;
+
+}
+
+.box {
+    color: azure;
+    border:3px;
+    border-radius: 0.5%;
+    border-color: #2f2f2f;
+    border-style: solid;
+    background-color: #191919;
+    margin-left: 20%;
+    padding: 2%;
+    width: 60%;
+    height: 30vh;
+    /* なぜかわからんけどできた */
+
+    word-break: break-all;
+    overflow-x:hidden;
+    /* Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+
+}
+/* Chrome・Safari */
+.box::-webkit-scrollbar{
+    display:none;
+}
+
+
+
+section {
+    color: azure;
+    margin-left: 20%;
+    padding: 2%;
+    background-color: #191919;
+    width: 60%;
+    border-right-width: 3px;
+    border-right-color: #2f2f2f;
+    border-right-style: solid;
+    border-left-width: 3px;
+    border-left-color: #2f2f2f;
+    border-left-style: solid;
+    border-top-width: 3px;
+    border-top-color: #2f2f2f;
+    border-top-style: solid;
 }

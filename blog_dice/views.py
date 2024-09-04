@@ -37,7 +37,7 @@ class FrontpageView(View):
     def get(self,request):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         contents,n = notion.get_filtered_pages(DB_ID_notion)
-        print(*contents)
+        # print(*contents)
         return render(request,"frontpage.html",{"contents":contents})
 
 
@@ -64,7 +64,7 @@ class Page_listView(View):
     def get(self,request):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         contents,n = notion.get_filtered_pages(DB_ID_notion)
-        print(*contents)
+        # print(*contents)
         return render(request,"page_list.html",{"contents":contents})
 
 #POSTの[0]要素に識別番号を入れる
@@ -81,6 +81,6 @@ class Notion_detailView(View):
         #notionのページコンテンツ取得
         contents = notion.get_page_content(page_id)
         last_update = notion.get_page_property_last_updated(page_id)
-        print(page_id)
-        print(contents)
+        # print(page_id)
+        # print(contents)
         return render(request,"notion_detail.html",{"contents":contents,"last_update":last_update})
