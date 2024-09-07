@@ -14,4 +14,18 @@
 <hr>
 
 {% endfor %}
+<br><br>
+<div style="display: flex;">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="count" value={{ n|add:"-20" }}>
+        <a href="{% url "blog_dice:page_list" %}"><button type="submit" style="margin-right: 10px;">前へ</button></a>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="count" value={{n}}>
+        <a href="{% url "blog_dice:page_list" %}"><button type="submit">次へ</button></a>
+    </form>
+</div>
+
 {% endblock content %}

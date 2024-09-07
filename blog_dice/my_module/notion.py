@@ -55,6 +55,7 @@ def get_page_content(page_id):#ページの内容取得
             "page_size": 50
         }
     )
+    # print(data)
     data_str = json.dumps(data)
     response=extract_content(data_str)
     return response
@@ -146,9 +147,12 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
         print(start_cursor)
         if start_cursor%10==0:
             break
+    if start_cursor%10!=0:
+        start_cursor=int(start_cursor/10)
+        start_cursor=start_cursor*10+10
 
     next_cursor = start_cursor
-
+    # print(results)
     return results,next_cursor
 
 
@@ -183,6 +187,7 @@ def extract_content(data):#ページの内容から必要な情報のみ抽出�
         if block_type in ["paragraph", "heading_1", "heading_2", "heading_3", "bulleted_list_item"]:
             # テキストブロックからテキストを取得
             for text_element in block[block_type]["rich_text"]:
+
                 text_content = text_element["plain_text"]
                 contents.append([block_type, text_content])
                 # リンクがあればURLも抽出し、別の要素として追加
@@ -198,5 +203,24 @@ def extract_content(data):#ページの内容から必要な情報のみ抽出�
             if "bookmark" in block:
                 bookmark_url = block["bookmark"]["url"]
                 contents.append([block_type, bookmark_url])
+        elif block_type == "code":
+            for text_element in block[block_type]["rich_text"]:
+                text_content = text_element["plain_text"]
+                i=0
+                content=[]
+                for x in text_content:
+
+                    if i==0:
+                        y=x
+                        i=1
+                    else:
+                        if x=="\n":
+                            content.append(y)
+                            i=0
+                        else:
+                            y+=x
+                contents.append([block_type, content])
+
+
 
     return contents

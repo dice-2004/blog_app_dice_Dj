@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 {% for x in contents %}
-{% if x.0 == "paragraph" %}
-<p>{{x.1}}</p>
+{% if x.0 == "code" %}
+{% for element in x.1 %}
+<div style="background-color:green;"><pre><code style="line-height: 1.5; font-family: Consolas, 'Courier New', monospace; font-size: 20px; padding: 10px; border-radius: 5px;">{{element}}</code></pre></div>
+
+{% endfor %}
+{% elif x.0 == "paragraph" %}
+<p>{{x.1}}<br></p>
 {% elif x.0 == "heading_1" %}
-<h1>{{x.1}}</h1>
+<h1 style="color:red;">{{x.1}}</h1>
 {% elif x.0 == "heading_2" %}
-<h2>{{x.1}}</h2>
+<h2 style="color:red;">{{x.1}}</h2>
 {% elif x.0 == "heading_3" %}
-<h3>{{x.1}}</h3>
+<h3 style="color:red;">{{x.1}}</h3>
 {% elif x.0 == "bulleted_list_item" %}
 <li>{{x.1}}</li>
 {% elif x.0 == "image" %}
@@ -16,5 +21,6 @@
 {% elif x.0 == "bookmark" %}
 <a href="{{x.1}}">→ここ</a>
 {% endif %}
+<div style="margin-bottom: 15px;"></div>
 {% endfor %}
 {% endblock %}

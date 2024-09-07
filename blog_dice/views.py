@@ -38,6 +38,9 @@ class FrontpageView(View):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         contents,n = notion.get_filtered_pages(DB_ID_notion)
         # print(*contents)
+
+        re=notion.get_page_content("9b89dcb8-3837-4e09-a1ac-02d92f5e14fc")
+        # print(re)
         return render(request,"frontpage.html",{"contents":contents})
 
 
@@ -65,15 +68,20 @@ class Page_listView(View):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         contents,n = notion.get_filtered_pages(DB_ID_notion)
         # print(*contents)
-        return render(request,"page_list.html",{"contents":contents})
+        return render(request,"page_list.html",{"contents":contents,"n":n})
 
 #POSTの[0]要素に識別番号を入れる
 #serchなら1,categoryなら2,start_cursorなら3
 
 
     def post(self,request):
-        category=request.POST('xxx')
-        notion.get_filtered_pages(DB_ID_notion,category)
+        num=int(request.POST["count"])
+        print(num)
+        # category=request.POST('xxx')
+        contents,n = notion.get_filtered_pages(database_id=DB_ID_notion,start_cursor=num)
+        print(n)
+        return render(request,"page_list.html",{"contents":contents,"n":n})
+
 
 class Notion_detailView(View):
     def get(self,request,page_id):
