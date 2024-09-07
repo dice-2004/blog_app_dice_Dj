@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>ここはfrontpage</p><br>
-<a href="{% url "blog_dice:page_list" %}">page_list</a><br>
+{% comment %} <p>ここはfrontpage</p><br> {% endcomment %}
+<a href="{% url "blog_dice:page_list" %}"><h2 style="padding-top:5%;padding-left:5%;">メモページリストへ</h2></a><br>
 
-<div class="list">
-    <p>article list</p><br>
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-    </ul></div>
 {% endblock content %}

@@ -12,7 +12,7 @@
 <body>
     <nav>
         <div class="logo">
-            <h4 style="color:white;">title</h4>
+            <a href="{% url "blog_dice:frontpage" %}"style="text-decoration: none;color:white;"><h4 style="color:white;">title</h4>
         </div>
         <ul class="nav_links">
             <li><a href="{% url "blog_dice:about_me" %}">About Me</a></li>
@@ -26,11 +26,20 @@
             <div class="line3"></div>
         </div>
     </nav>
-
+    <section>
     {% block content %}{% endblock content %}
-
+    </section>
+    <section>
+        <div style="display:flex; overflow-wrap:normal;">
+            <a href="https://github.com/dice-2004" style="text-decoration: none;color:white;"><ion-icon name="logo-github" style="font-size:70px;margin-left:10%"></ion-icon></a>
+            <a href="https://github.com/dice-2004" style="text-decoration: none;color:blue;"><ion-icon name="logo-github" style="font-size:70px;margin-left:80%"></ion-icon><a>
+            <a href="https://github.com/dice-2004" style="text-decoration: none;color:green;"><ion-icon name="logo-github" style="font-size:70px;margin-left:150%"></ion-icon><a>
+                <a href="https://github.com/dice-2004" style="text-decoration: none;color:red;"><ion-icon name="logo-github" style="font-size:70px;margin-left:220%"></ion-icon><a>
+                    <a href="https://github.com/dice-2004" style="text-decoration: none;color:yellow;"><ion-icon name="logo-github" style="font-size:70px;margin-left:290%"></ion-icon><a>
 
     <script src="{% static "js/base.js" %}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

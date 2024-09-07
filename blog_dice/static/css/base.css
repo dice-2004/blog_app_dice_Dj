@@ -175,7 +175,7 @@ div.list {
 
 
 section {
-    height:  100vh;
+    height:  auto;
 }
 
 
@@ -241,4 +241,8 @@ section {
     border-top-width: 3px;
     border-top-color: #2f2f2f;
     border-top-style: solid;
+    border-bottom-color: #2f2f2f;
+    border-bottom-width:3px ;
+    border-bottom-style: solid;
+
 }

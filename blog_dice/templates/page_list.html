@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>www</h2>
-{% comment %} <a href = "{% url "notion_detail" page_id %}">kkk</a> {% endcomment %}
 
-{% for content in contents %}
-<p>{{content.title}}</p><br>
-<p>{{content.category}}</p><br>
-<p>{{content.creation_date}}</p><br>
-<a href="{% url "blog_dice:notion_detail" content.page_id %}">{{content.page_id}}</a>
+{% comment %} <a href = "{% url "notion_detail" page_id %}">kkk</a> {% endcomment %}
+<h1 style="padding-left:10%;padding-bottom:5%;">メモ一覧</h1>
 <hr>
+{% for content in contents %}
+<div style="padding-top:5%; padding-left:5%;padding-bottom:5%;">
+<h3>Title <h2 style="padding-left:30px;">{{content.title}}</h2></h3>
+<p style="color:blue;">category &nbsp;&nbsp;==> &nbsp;&nbsp;{% for content in content.category %}{{content}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endfor %}</p><br>
+<p style="color:green;">editdate&nbsp;&nbsp; ==> &nbsp;&nbsp;{{content.creation_date}}</p><br>
+<a href="{% url "blog_dice:notion_detail" content.page_id %}">→こちら</a>
+</div>
+<hr>
+
 {% endfor %}
 {% endblock content %}
