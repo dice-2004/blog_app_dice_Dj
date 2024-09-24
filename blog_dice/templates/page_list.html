@@ -8,7 +8,7 @@
 <div style="padding-top:5%; padding-left:5%;padding-bottom:5%;">
 <h3>Title <h2 style="padding-left:30px;">{{content.title}}</h2></h3>
 <p style="color:blue;">category &nbsp;&nbsp;==> &nbsp;&nbsp;{% for content in content.category %}{{content}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endfor %}</p><br>
-<p style="color:green;">editdate&nbsp;&nbsp; ==> &nbsp;&nbsp;{{content.creation_date}}</p><br>
+<p style="color:green;">last_editdate&nbsp;&nbsp; ==> &nbsp;&nbsp;{{content.Last_updated}}</p><br>
 <a href="{% url "blog_dice:notion_detail" content.page_id %}">→こちら</a>
 </div>
 <hr>
@@ -16,7 +16,7 @@
 {% endfor %}
 <br><br>
 <div style="display: flex;">
-    <form method="post">
+    {% comment %} <form method="post">
         {% csrf_token %}
         <input type="hidden" name="count" value={{ n|add:"-20" }}>
         <a href="{% url "blog_dice:page_list" %}"><button type="submit" style="margin-right: 10px;">前へ</button></a>
@@ -25,7 +25,7 @@
         {% csrf_token %}
         <input type="hidden" name="count" value={{n}}>
         <a href="{% url "blog_dice:page_list" %}"><button type="submit">次へ</button></a>
-    </form>
+    </form> {% endcomment %}
 </div>
 
 {% endblock content %}

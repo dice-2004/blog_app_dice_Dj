@@ -97,6 +97,7 @@ def get_page_property_last_updated(page_id):#OK
     return {'last_updated': last_updated}
 
 
+
 #created by chatGPT & ME
 def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
     """データベースIDからpublicがTrueで、特定のカテゴリがあればそのカテゴリに一致するページを取得し、作成日が最新順にデータを返す。
@@ -116,16 +117,18 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
 
     # APIのレスポンスを取得
     query = client.databases.query(database_id=database_id)
-    i=start_cursor
+
+    # i=start_cursor
+    # add_cursor=0
     # APIのレスポンスを適切に処理
     results = []
     for page in query['results']:
-        if 0<i:
-            i-=1
-            continue
+        # if 0<i:
+        #     # i-=1
+        #     continue
         public = page['properties'].get('public', {}).get('checkbox', False)
         if False == public:
-            start_cursor+=1
+            # add_cursor+=1
             continue
         category = [option['name'] for option in page['properties'].get('Category', {}).get('multi_select', [])]
         if specific_category == 0:
@@ -134,27 +137,29 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
             pass
         else:
             continue
-        start_cursor+=1
+        # start_cursor+=1
         page_id = page['id']
         title = page['properties'].get('Title', {}).get('title', [])
         if title:
             title = title[0].get('plain_text', '')
         else:
             title = 'No Title Available'
-        creation_date = page['properties'].get('Creation date', {}).get('created_time', '')
-        creation_date = func.convert_date_format(creation_date)
-        results.append({'page_id': page_id, 'title': title, 'category': category, 'creation_date': creation_date})
-        print(start_cursor)
-        if start_cursor%10==0:
-            break
-    if start_cursor%10!=0:
-        start_cursor=int(start_cursor/10)
-        start_cursor=start_cursor*10+10
+        last_edit_day = page['properties'].get('Last updated', {}).get('last_edited_time', '')
+        last_edit_day = func.convert_date_format(last_edit_day)
+        print(last_edit_day)
+        results.append({'page_id': page_id, 'title': title, 'category': category, 'Last_updated': last_edit_day})
+        sorted_results = sorted(results, key=lambda page: page['Last_updated'], reverse=True)
+    #     print(start_cursor)
+    #     if start_cursor%10==0:
+    #         break
+    # start_cursor+=add_cursor
+    # if start_cursor%10!=0:
+    #     start_cursor=int(start_cursor/10)
+    #     start_cursor=start_cursor*10+10
 
-    next_cursor = start_cursor
+    # next_cursor = start_cursor
     # print(results)
-    return results,next_cursor
-
+    return sorted_results
 
 
 
