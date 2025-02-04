@@ -6,5 +6,5 @@ from . import top
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",top.top),
-    path('blog_dice/',include('blog_dice.urls')),
+    path('blog_dice/',include('blog_dice.urls'),name='tops'),
 ]
