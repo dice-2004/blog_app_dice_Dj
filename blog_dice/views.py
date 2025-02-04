@@ -5,6 +5,7 @@ from . import DB_ID_notion,TXT_LOG,ERROR_LOG
 from django.views.generic import View
 from logging import getLogger,DEBUG,FileHandler,ERROR,Formatter
 import inspect
+import json
 
 
 
@@ -68,7 +69,7 @@ class Page_listView(View):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         contents = notion.get_filtered_pages(DB_ID_notion)
         # print(*contents)
-        return render(request,"page_list.html",{"contents":contents})
+        return render(request,"page_list.html",{"contents":contents,})
 
 #POSTの[0]要素に識別番号を入れる
 #serchなら1,categoryなら2,start_cursorなら3
@@ -88,6 +89,8 @@ class Notion_detailView(View):
         write_log.WriteLog(request.path,request.method,"connect web site.")
         #notionのページコンテンツ取得
         contents = notion.get_page_content(page_id)
+        with open("contents.json", "w") as f:
+            json.dump(contents, f, indent=4)
         last_update = notion.get_page_property_last_updated(page_id)
         # print(page_id)
         # print(contents)
