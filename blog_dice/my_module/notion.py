@@ -1,5 +1,5 @@
 from notion_client import Client
-import configparser
+# import configparser
 import json
 from .. import client
 from . import func
@@ -11,9 +11,10 @@ from . import func
 # これにより、プログラムの安全性が向上し、エラーを回避できます。
 
 def get_notion_api_key():#config.iniからapi_keyを取得する
-    config = configparser.ConfigParser()
-    config.read('./config.ini')
-    api_key = config['DEFAULT']['API_KEY']
+    # config = configparser.ConfigParser()
+    # config.read('./config.ini')
+    # api_key = config['DEFAULT']['API_KEY']
+    api_key=secret_DvZRaCW9gMv7FCiFj2NlTU0jHRcPqiIBgdu0TzaRFh4
     client=Client(auth=api_key)
     return client
 
@@ -97,7 +98,6 @@ def get_page_property_last_updated(page_id):#OK
     return {'last_updated': last_updated}
 
 
-
 #created by chatGPT & ME
 def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
     """データベースIDからpublicがTrueで、特定のカテゴリがあればそのカテゴリに一致するページを取得し、作成日が最新順にデータを返す。
@@ -117,18 +117,16 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
 
     # APIのレスポンスを取得
     query = client.databases.query(database_id=database_id)
-
     # i=start_cursor
-    # add_cursor=0
     # APIのレスポンスを適切に処理
     results = []
     for page in query['results']:
         # if 0<i:
-        #     # i-=1
+        #     i-=1
         #     continue
         public = page['properties'].get('public', {}).get('checkbox', False)
         if False == public:
-            # add_cursor+=1
+            # start_cursor+=1
             continue
         category = [option['name'] for option in page['properties'].get('Category', {}).get('multi_select', [])]
         if specific_category == 0:
@@ -168,6 +166,8 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
 
 
 
+
+
 #created by chatGPT
 def extract_content(data):#ページの内容から必要な情報のみ抽出する
     """
@@ -199,6 +199,12 @@ def extract_content(data):#ページの内容から必要な情報のみ抽出�
                 if text_element["text"].get("link"):
                     link_url = text_element["text"]["link"]["url"]
                     contents.append([f"{block_type} Link", link_url])
+            if block_type in ["heading_1", "heading_2", "heading_3"]:
+                result=get_page_content(block["id"])
+                if result != []:
+                    contents[-1][0] = "nest "+contents[-1][0]
+                    for content in result:
+                        contents.append(content)
         elif block_type == "image":
             # 画像ブロックからURLを取得
             image_url = block["image"]["file"]["url"]
