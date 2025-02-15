@@ -12,4 +12,5 @@ urlpatterns = [
     path("product",views.ProductView.as_view() ,name="product"),
     path("page_list",views.Page_listView.as_view() ,name = 'page_list'),
     path("notion/<page_id>",views.Notion_detailView.as_view() ,name = "notion_detail"),
+    path("this/page/is/load/all/my/page/detail/So/you/should/jump/my/top",views.LoadAllView.as_view() ,name = 'load_all'),
 ]
