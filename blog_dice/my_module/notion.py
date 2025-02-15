@@ -21,6 +21,25 @@ def get_notion_api_key():#config.iniからapi_keyを取得する
 ##各関数の先頭に    client = get_notion_api_key()をつける
 #いらない
 
+def fetch_category(database_id):
+    response = client.databases.query(
+        **{
+            "database_id": database_id,
+        }
+    )
+    response = response["results"]
+    category=[]
+    for res in response:
+        res=res["properties"]["Category"]["multi_select"]
+        for cat in res:
+            cat=convert_unicode_to_japanese(cat["name"])
+            print(cat)
+            if cat not in category:
+                category.append(cat)
+    # with open("contents.json", "w") as f:
+    #     json.dump(category, f, indent=4)
+    return category
+
 
 def read_notion_database(database_id):# データベースの全ての情報を取得する
     # client = get_notion_api_key()
@@ -33,6 +52,9 @@ def read_notion_database(database_id):# データベースの全ての情報を�
     print(response)
     return response
 
+def get_edit_db(page_id):
+    return func.convert_date_format(client.blocks.children.list(page_id)["results"][0]["last_edited_time"])
+    # return client.blocks.children.list(page_id)
 
 def get_page_title(page_id):#title取得
     # client = get_notion_api_key()
@@ -99,7 +121,7 @@ def get_page_property_last_updated(page_id):#OK
 
 
 #created by chatGPT & ME
-def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
+def get_filtered_pages(database_id, specific_category=None, start_cursor=0):#OK
     """データベースIDからpublicがTrueで、特定のカテゴリがあればそのカテゴリに一致するページを取得し、作成日が最新順にデータを返す。
     start_cursorを指定することで、次のページのデータを取得することができる。"""
     # client = get_notion_api_key()
@@ -116,10 +138,24 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
     # }
 
     # APIのレスポンスを取得
+    # if specific_category == None:
     query = client.databases.query(database_id=database_id)
+    # else:
+    #     query = client.databases.query(
+    #         {
+    #             "database_id": database_id,
+    #             "filter": {
+    #                 "property": "Category",
+    #                 "rich_text": {
+    #                 "equals": specific_category
+    #                 }
+    #             }
+    #             }
+    #         )
     # i=start_cursor
     # APIのレスポンスを適切に処理
     results = []
+    sorted_results = []
     for page in query['results']:
         # if 0<i:
         #     i-=1
@@ -129,7 +165,7 @@ def get_filtered_pages(database_id, specific_category=0, start_cursor=0):#OK
             # start_cursor+=1
             continue
         category = [option['name'] for option in page['properties'].get('Category', {}).get('multi_select', [])]
-        if specific_category == 0:
+        if specific_category == None:
             pass
         elif specific_category in category:
             pass
@@ -228,10 +264,33 @@ def extract_content(data):#ページの内容から必要な情報のみ抽出�
                         if x=="\n":
                             content.append(y)
                             i=0
+                            y=""
                         else:
                             y+=x
+                content.append(y)
                 contents.append([block_type, content])
 
 
 
     return contents
+
+def is_unicode_escape(text):
+
+    import re
+    # \uXXXXのパターンにマッチするか確認
+    pattern = r'\\u[0-9a-fA-F]{4}'
+    return bool(re.search(pattern, text))
+
+def convert_unicode_to_japanese(text):
+
+    try:
+        # すでに通常の文字列の場合はそのまま返す
+        if not is_unicode_escape(text):
+            return text
+
+        # Unicodeエスケープシーケンスを評価して文字列に変換
+        decoded_text = text.encode('utf-8').decode('unicode-escape')
+        return decoded_text
+    except Exception as e:
+        print(f"変換エラー: {e}")
+        return text
