@@ -1,31 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% comment %} <a href = "{% url "notion_detail" page_id %}">kkk</a> {% endcomment %}
-<h1 style="padding-left:10%;padding-bottom:5%;">メモ一覧</h1>
-<hr>
-{% for content in contents %}
-<div style="padding-top:5%; padding-left:5%;padding-bottom:5%;">
-<h3>Title <h2 style="padding-left:30px;">{{content.title}}</h2></h3>
-<p style="color:blue;">category &nbsp;&nbsp;==> &nbsp;&nbsp;{% for content in content.category %}{{content}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endfor %}</p><br>
-<p style="color:green;">last_editdate&nbsp;&nbsp; ==> &nbsp;&nbsp;{{content.Last_updated}}</p><br>
-<a href="{% url "blog_dice:notion_detail" content.page_id %}">→こちら</a>
-</div>
-<hr>
 
+<div style="top:100px;right:5%;padding: 1.5rem 2rem; border: 1px solid #E8F5E9; border-radius: 12px ; background-color:#2B2B2B;; margin: 0 5% 2.5rem;">
+<h2 style = "color:#E8F5E9;"><i class="fa-solid fa-tag fa-lg"></i>&nbsp;&nbsp;Tags</h2>
+<a href="{% url 'blog_dice:page_list' %}"
+   style="display: inline-block;
+          text-decoration: none;
+          color: #E8F5E9;
+          background-color: #6e7c83;
+          border: 1px solid #576684;
+          border-radius: 12px;
+          margin: 5px;
+          padding: 5px;
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='#7d8b92'; this.style.color='#F1F8F2'; this.style.borderColor='#647594';"
+   onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='#6e7c83'; this.style.color='#E8F5E9'; this.style.borderColor='#576684';">
+   ALL
+</a>
+{% for cat in category %}
+<a href="{% url 'blog_dice:page_list' %}?param={{ cat }}"
+   style="display: inline-block;
+          text-decoration: none;
+          color: #E8F5E9;
+          background-color: #6e7c83;
+          border: 1px solid #576684;
+          border-radius: 12px;
+          margin: 5px;
+          padding: 5px;
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='#7d8b92'; this.style.color='#F1F8F2'; this.style.borderColor='#647594';"
+   onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='#6e7c83'; this.style.color='#E8F5E9'; this.style.borderColor='#576684';">
+   {{ cat }}
+</a>
 {% endfor %}
-<br><br>
-<div style="display: flex;">
-    {% comment %} <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="count" value={{ n|add:"-20" }}>
-        <a href="{% url "blog_dice:page_list" %}"><button type="submit" style="margin-right: 10px;">前へ</button></a>
-    </form>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="count" value={{n}}>
-        <a href="{% url "blog_dice:page_list" %}"><button type="submit">次へ</button></a>
-    </form> {% endcomment %}
+</div>
+<h1 style="text-align: left; margin-left: 5%; margin-bottom: 2rem; color: #4CAF50; font-size: 2.5rem; font-weight: bold;"><i class="fa-solid fa-book"></i>&nbsp;Memos</h1>
+<hr style="border: 1px solid #4CAF50; margin-bottom: 2rem; margin-left: 5%; margin-right: 5%;">
+{% for content in contents %}
+<div style="padding: 1.5rem 2rem; border: 1px solid #4CAF50; border-radius: 12px; background-color: #37474F; margin: 0 5% 2.5rem;">
+    <!--<h3 style="margin-bottom: 1rem; color: #81C784; font-size: 1.75rem; text-align: left; text-transform: uppercase; letter-spacing: 0.05em;">タイトル</h3>-->
+    <h2 style="margin-bottom: 1.5rem; color: #E8F5E9; font-size: 2rem; text-align: left; font-weight: bold; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);">~{{ content.title }}</h2>
+    <p style="margin-bottom: 1rem; font-size: 1.1rem; text-align: left;">
+        <span style="color: #64B5F6; font-weight: bold;"><i class="fa-solid fa-tag fa-lg"></i>&nbsp;:</span>
+        {% for category in content.category %}
+            <span style="margin-right: 1rem; color: #E3F2FD;">{{ category }}</span>
+        {% endfor %}
+    </p>
+    <p style="margin-bottom: 1.5rem; font-size: 1rem; text-align: left;">
+        <span style="color: #AED581; font-weight: bold;"><i class="fa-solid fa-clock fa-lg"></i>&nbsp;:</span>
+        <span style="color: #DCEDC8;">{{ content.Last_updated }}</span>
+    </p>
+    <div style="text-align: left;">
+        <a href="{% url 'blog_dice:notion_detail' content.page_id %}?title={{ content.title|urlencode }}&last_edit={{ content.Last_updated }}"
+   style="color: #FFB74D;
+          text-decoration: none;
+          font-weight: bold;
+          font-size: 1rem;
+          padding: 0.5rem 1rem;
+          border: 1px solid #FFB74D;
+          border-radius: 6px;
+          display: inline-block;
+          background-color: rgba(255, 183, 77, 0.1);
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='rgba(255, 183, 77, 0.2)'; this.style.color='#FFC77D'; this.style.borderColor='#FFC77D';"
+   onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='rgba(255, 183, 77, 0.1)'; this.style.color='#FFB74D'; this.style.borderColor='#FFB74D';">
+   ▶ Detail
+</a>
+            </div>
+</div>
+<hr style="border: 1px solid #4CAF50; margin-bottom: 2rem; margin-left: 5%; margin-right: 5%;">
+{% endfor %}
+
+<div style="text-align: left; margin-top: 2rem; margin-left: 5%;">
+    <p style="color: #B0BEC5; font-size: 1rem;">これ以上のメモはありません。</p>
 </div>
 
 {% endblock content %}
