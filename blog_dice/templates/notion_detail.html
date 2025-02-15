@@ -1,26 +1,44 @@
 {% extends "base.html" %}
-{% block content %}
-{% for x in contents %}
-{% if x.0 == "code" %}
-{% for element in x.1 %}
-<div style="background-color:green;"><pre><code style="line-height: 1.5; font-family: Consolas, 'Courier New', monospace; font-size: 20px; padding: 10px; border-radius: 5px;">{{element}}</code></pre></div>
 
-{% endfor %}
-{% elif x.0 == "paragraph" %}
-<p>{{x.1}}<br></p>
-{% elif x.0 == "heading_1" %}
-<h1 style="color:red;">{{x.1}}</h1>
-{% elif x.0 == "heading_2" %}
-<h2 style="color:red;">{{x.1}}</h2>
-{% elif x.0 == "heading_3" %}
-<h3 style="color:red;">{{x.1}}</h3>
-{% elif x.0 == "bulleted_list_item" %}
-<li>{{x.1}}</li>
-{% elif x.0 == "image" %}
-<img src="{{x.1}}" width="50%" height="50%">
-{% elif x.0 == "bookmark" %}
-<a href="{{x.1}}">→ここ</a>
-{% endif %}
-<div style="margin-bottom: 15px;"></div>
-{% endfor %}
+{% block content %}
+<div style="padding: 20px; font-family: Arial, sans-serif; text-align: left;">
+    <!-- タイトルの追加 -->
+    <h1 style="color: #ffa07a; font-size: 36px; text-align: center; margin-bottom: 40px; font-weight: bold;">{{ title }}</h1>
+
+    {% for x in contents %}
+        {% if x.0 == "code" %}
+        <div style="background-color: #1e1e2f; color: #ffffff; overflow-x: auto; border-radius: 8px; margin-bottom: 20px; margin-top:10px;scrollbar-width: thin; scrollbar-color: #888 #333;  padding: 15px;">
+            <ol style="list-style: decimal; padding: 0 0 0 40px; margin: 0; counter-reset: line-number;">
+                {% for element in x.1 %}
+                <li style="display: flex; align-items: flex-start;">
+                    <pre style="margin: 0; line-height: 1.8; font-family: Consolas, 'Courier New', monospace; font-size: 18px; color: #dcdcdc; background-color: transparent; border: none;">{{ element }}</pre>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% elif x.0 == "paragraph" %}
+        <p style="color: #dcdcdc; font-size: 16px; line-height: 1.8; ">{{ x.1 }}</p>
+        {% elif x.0 == "heading_1" or x.0 == "nest heading_3" or x.0 == "nest heading_1"%}
+        <h1 style="color: #ffa07a; font-size: 32px; margin-bottom: 10px; text-align: left; font-weight: bold; padding-top:15px">{{ x.1 }}</h1>
+        <hr style="border: 1px solid #666; margin-bottom: 20px;">
+        {% elif x.0 == "heading_2" or x.0 == "nest heading_2"%}
+        <h2 style="color: #ffa07a; font-size: 24px; margin-bottom: 10px; text-align: left; font-weight: bold; padding-top:15px">{{ x.1 }}</h2>
+        <hr style="border: 1px solid #666; margin-bottom: 15px;">
+        {% elif x.0 == "heading_3" %}
+        <h3 style="color: #ffe4b5; font-size: 24px; text-align: left; font-weight: bold;">{{ x.1 }}</h3>
+        {% elif x.0 == "bulleted_list_item" %}
+        <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 20px; text-align: left;">
+            <li style="color: #dcdcdc; font-size: 16px; line-height: 1.6;">{{ x.1 }}</li>
+        </ul>
+        {% elif x.0 == "image" %}
+        <div style="text-align: left; margin-bottom: 20px;">
+            <img src="{{ x.1 }}" alt="Image" style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+        {% elif x.0 == "bookmark" %}
+        <div style="margin-bottom: 20px; text-align: left;">
+            <a href="{{ x.1 }}" style="color: #1e90ff; font-size: 16px; text-decoration: none;">🔗link</a>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
 {% endblock %}
