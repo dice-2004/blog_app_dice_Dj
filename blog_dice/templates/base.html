@@ -8,19 +8,301 @@
     <link rel="stylesheet" href="{% static "css/base.css" %}">
     {% block head %}{% endblock head %}
     <title>{% block title %}{% endblock title %}</title>
-    <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #2B2B2B;
+            font-family: 'Roboto', sans-serif;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .loading-box{
+            position:fixed;
+            top:45%;
+            right:45%;
+            visibility:hidden;
+          width: 200px;
+          height: 40px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        .loading-box span{
+          width: 10px;
+          height: 10px;
+          background-color: blanchedalmond;
+          border-radius: 50%;
+          display: block;
+          transform: scale(1);
+          transform-origin: center center;
+          animation: circle .2s infinite ease-in-out 0s;
+          /*visibility: hidden;*/
+        }
+        h6{
+         width: 100%;
+          margin: 0px;
+          font-family: 'Lato';
+          font-size: 12px;
+          letter-spacing: 10px;
+          margin-top: 15px;
+          color: #fff;
+          text-align: center;
+          font-weight: lighter;
+          padding-left: 10px;
+        }
+        @keyframes circle{
+          0%, 100%{
+            transform: scale(1);
+            box-shadow: 0px 0px 5px 5px #fff;
+            /*visibility: visible;*/
+          }
+          50%{
+            transform: scale(.25);
+            box-shadow: none;
+          }
+        }
+        .loading-box span:nth-child(1){
+          animation: circle 1s infinite ease-in-out .2s;
+        }
+        .loading-box span:nth-child(2){
+          animation: circle 1s infinite ease-in-out .4s;
+        }
+        .loading-box span:nth-child(3){
+          animation: circle 1s infinite ease-in-out .6s;
+        }
+        .loading-box span:nth-child(4){
+          animation: circle 1s infinite ease-in-out .8s;
+        }
+        .loading-box span:nth-child(5){
+          animation: circle 1s infinite ease-in-out 1s;
+        }
+
+        nav {
+            /*opacity:0;*/
+            /*visibility:hidden;*/
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            top:0;
+            width: 100vw;
+            height: 10vh;
+            background-color: #333;
+            border-bottom: 1px solid #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            z-index:998;
+        }
+
+        .loaded{
+            opacity:0;
+            transition: all 0.3s;
+        }
+
+        #logos {
+            text-decoration: none;
+            /*color: #FFD700;*/
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            background-color: #333;
+        }
+
+        #logos:visited{
+            text-decoration: none;
+            /*color: #FFD700;*/
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            background-color: #333;
+        }
+
+        #logos:hover{
+            text-decoration: none;
+            /*color: #FFD700;*/
+            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            background-color: #333;
+        }
+        .title :hover{
+            text-decoration: none;
+            color: #FFD700;
+            background-color: #333;
+        }
+        .title :visited{
+            text-decoration: none;
+            color: #FFD700;
+            background-color: #333;
+        }
+        .nav_links {
+            display: flex;
+            gap: 2rem;
+            transition:all 0.5s ease-in-out;
+        }
+
+        .nav_links li {
+            list-style: none;
+        }
+
+        .nav_links a {
+            text-decoration: none;
+            color: #EAEAEA;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            transition: color 0.3s, border-bottom 0.3s;
+            padding: 0.2rem 0;
+            cursor: pointer;
+        }
+
+        .nav_links a:hover {
+            color: #FFD700;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #EAEAEA;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        section {
+            /*margin-top:100px;*/
+            /*visibility:hidden;*/
+            margin: 100px auto;
+            padding: 2rem;
+            background-color: #444;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .return_top {
+            /*visibility:hidden;*/
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFD700;
+            color: #2B2B2B;
+            font-size: 1.5rem;
+            text-align: center;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background-color 0.3s;
+            z-index:997;
+        }
+
+        .return_top:hover {
+            transform: scale(1.2);
+            background-color: #FFC85C;
+        }
+
+        .nav-active{
+            transform: translateX(0%) !important;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            body {
+                overflow-x:hidden;
+            }
+            .nav_links {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 10vh;
+                right: 0;
+                background-color: #333;
+                width: 50%;
+                height: 88vh;
+                box-shadow: -4px 0 6px rgba(0, 0, 0, 0.5);
+                padding-top: 2rem;
+                transform:translateX(0%);
+                transition:all 0.5s ease-in-out;
+                position: fixed;
+                z-index: 999;
+            }
+
+            .nav_links li {
+                opacity: 100;
+                transition:all 0.5s ease-in-out;
+            }
+
+            .nav_links.active {
+                display: flex;
+                z-index:999;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .toggle .line1 {
+                transform: rotate(-405deg) translate(-9px, 9px);
+            }
+
+            .toggle .line2 {
+                opacity: 0;
+            }
+
+            .toggle .line3 {
+                transform: rotate(405deg) translate(-9px, -9px);
+            }
+
+            /*section {*/
+            /*    width: 95%;*/
+            /*    padding: 1.5rem;*/
+            /*}*/
+        }
+
+    </style>
 </head>
 <body>
+    <div class="loading-box">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <h6>Please Wait</h6>
+    </div>
+
+    </div>
     <nav>
-        <div class="logo">
-            <a href="{% url "blog_dice:frontpage" %}"style="text-decoration: none;color:white;"><h4 style="color:white;">Diceのメモ</h4>
+        <div id="logos">
+            <a href="{% url "blog_dice:frontpage" %}" style="text-decoration: none; color: #FFD700; background-color: #333;" class = "title">Dice 's Memo</a>
         </div>
         <ul class="nav_links">
-            <li><a href="{% url "blog_dice:about_me" %}">About Me</a></li>
-            <li><a href="{% url "blog_dice:product" %}">Product</a></li>
-            <li><a href="">Category(未実装)</a>
-            </li>
+            <li><a href="{% url "blog_dice:about_me" %}" ><i class="fa-solid fa-address-card fa-lg"></i>&nbsp;&nbsp;About Me</a></li>
+            <li><a href="{% url "blog_dice:product" %}" ><i class="fa-solid fa-star fa-lg"></i>&nbsp;&nbsp;Product</a></li>
+            <li><a href="{% url 'blog_dice:page_list' %}" ><i class="fa-solid fa-book fa-lg"></i>&nbsp;&nbsp;memos</a></li>
         </ul>
         <div class="burger">
             <div class="line1"></div>
@@ -28,20 +310,137 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <section>
-    {% block content %}{% endblock content %}
+
+    <section >
+        {% block content %}{% endblock content %}
     </section>
-    <section>
-        <div style="display:flex; overflow-wrap:normal;">
-            <a href="https://github.com/dice-2004" style="text-decoration: none;color:white;"><ion-icon name="logo-github" style="font-size:70px;margin-left:10%"></ion-icon></a>
-            <a href="https://github.com/dice-2004" style="text-decoration: none;color:blue;"><ion-icon name="logo-github" style="font-size:70px;margin-left:80%"></ion-icon><a>
-            <a href="https://github.com/dice-2004" style="text-decoration: none;color:green;"><ion-icon name="logo-github" style="font-size:70px;margin-left:150%"></ion-icon><a>
-                <a href="https://github.com/dice-2004" style="text-decoration: none;color:red;"><ion-icon name="logo-github" style="font-size:70px;margin-left:220%"></ion-icon><a>
-                    <a href="https://github.com/dice-2004" style="text-decoration: none;color:yellow;"><ion-icon name="logo-github" style="font-size:70px;margin-left:290%"></ion-icon><a>
+    <!--<footer style="text-align: center; margin-top: 40px; padding: 20px; background-color: #333; color: #EAEAEA; font-size: 1rem;">-->
+        <!-- GitHubリンク -->
+    <!--    <div style="margin-reght:10px;">-->
+    <!--        <a href="https://github.com/dice-2004" target="_blank" style="color: #EAEAEA; font-size: 2rem; text-decoration: none;">-->
+    <!--            <i class="fab fa-github"></i> GitHub-->
+    <!--        </a>-->
+    <!--                    <a href="https://x.com/_dice_ke" target="_blank" style="color: #EAEAEA; font-size: 2rem; text-decoration: none;">-->
+    <!--            <i class="fa-brands fa-twitter"></i> Twiter-->
+    <!--        </a>-->
+    <!--    </div>-->
 
-    <script src="{% static "js/base.js" %}"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <!-- Made with Notion and Python -->
+    <!--    <p style="margin-top: 10px; font-size: 1rem;">-->
+    <!--        Made with <span style="font-weight: bold;">Notion</span> and <span style="font-weight: bold;">Python</span>-->
+    <!--    </p>-->
+    <!--</footer>-->
+    <footer style="text-align: center; padding: 2rem 0; background-color: #333; color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <!-- Social Links Container -->
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem;">
+            <!-- GitHub Link -->
+            <a href="https://github.com/dice-2004" target="_blank" style="color: #f3f4f6; text-decoration: none; display: flex; align-items: center; transition: transform 0.2s ease, color 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.color='#9ca3af';" onmouseout="this.style.transform='translateY(0)'; this.style.color='#f3f4f6';">
+                <i class="fab fa-github" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+                <span style="font-size: 1.1rem;">GitHub</span>
+            </a>
+            <!-- Twitter Link -->
+            <a href="https://x.com/_dice_ke" target="_blank" style="color: #f3f4f6; text-decoration: none; display: flex; align-items: center; transition: transform 0.2s ease, color 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.color='#9ca3af';" onmouseout="this.style.transform='translateY(0)'; this.style.color='#f3f4f6';">
+                <i class="fab fa-twitter" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+                <span style="font-size: 1.1rem;">Twitter</span>
+            </a>
+        </div>
 
+        <!-- Made with Section -->
+        <div style="border-top: 1px solid #374151; padding-top: 1.5rem; margin: 0 auto; max-width: 300px;">
+            <p style="margin: 0; font-size: 0.95rem; color: #9ca3af;">
+                Made with
+                <span style="font-weight: 600; color: #f3f4f6; margin: 0 0.2rem;">Notion</span>
+                and
+                <span style="font-weight: 600; color: #f3f4f6; margin: 0 0.2rem;">Python</span>
+            </p>
+        </div>
+    </footer>
+    <a href="#top" class="return_top">&#9650;</a>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav_links');
+        const lines = document.querySelectorAll('.burger div');
+        console.log('こんにちは');
+        const loader = document.querySelector(".loading-box");
+        const contenta = document.querySelector(".return_top");
+        const contentb = document.querySelector("footer");
+        const contentc = document.querySelector("nav");
+        const contentd = document.querySelector("section");
+        loader.style.visibility = "hidden";
+        contenta.classList.remove("loaded");
+
+        contentb.classList.remove("loaded");
+
+        contentc.classList.remove("loaded");
+
+        contentd.classList.remove("loaded");
+
+
+        burger.addEventListener('click', () => {
+                nav.classList.toggle("active");
+                burger.classList.toggle("toggle")
+        });
+        document.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                loader.style.visibility = "visible"
+                contenta.classList.add("loaded");
+
+                contentb.classList.add("loaded");
+
+                contentc.classList.add("loaded");
+
+                contentd.classList.add("loaded");
+                window.location.href = this.href;
+                setTimeout(function() {
+                    loader.style.visibility = "hidden";
+                    contenta.classList.remove("loaded");
+
+                    contentb.classList.remove("loaded");
+
+                    contentc.classList.remove("loaded");
+
+                    contentd.classList.remove("loaded");
+                }, 5000); // 3秒後に実行（3000ms = 3秒）
+
+
+            });
+        });
+        window.addEventListener("resize", function() {
+            // body の高さを取得
+            const bodyHeight = document.body.scrollHeight;
+            const fot = document.querySelector("footer")
+
+            // body の高さが 500px 以下の場合
+            if (bodyHeight <= 700) {
+                const bot = 700 - bodyHeight+300;
+                fot.style.marginTop = bot+"px";
+            }
+        });
+
+        // ページが読み込まれたときにもチェック
+        window.dispatchEvent(new Event("resize"));
+        // window.onload = function(){
+        //         const loader = document.querySelector(".loading-box");
+        //         loader.style.visibility = "hidden"
+        //         const contenta = document.querySelector(".return_top");
+        //         contenta.classList.add("loaded");
+        //         const contentb = document.querySelector("footer");
+        //         contentb.classList.add("loaded");
+        //         const contentc = document.querySelector("nav");
+        //         contentc.classList.add("loaded");
+        //         const contentd = document.querySelector("section");
+        //         contentd.classList.add("loaded");
+
+        // }
+    //     window.addEventListener("popstate", function(event) {
+
+
+
+
+    </script>
+
+    <script src="https://kit.fontawesome.com/64f12f358c.js" crossorigin="anonymous"></script>
 </body>
 </html>
