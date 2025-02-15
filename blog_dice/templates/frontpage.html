@@ -1,7 +1,94 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% comment %} <p>ここはfrontpage</p><br> {% endcomment %}
-<a href="{% url "blog_dice:page_list" %}"><h2 style="padding-top:5%;padding-left:5%;">メモページリストへ</h2></a><br>
+<!-- about -->
+<!-- このページでは、エンジニアを目指す学生が学んできたことや、迷ったこと、
+気づいたことを記録しています。正確さに欠ける場合もありますので、
+そっとアドバイスいただけると嬉しいです。 -->
+
+<h1 style="text-align: center; font-size: 1.5rem; color: #607D8B; margin-top: 2rem;"><i class="fa-solid fa-check"></i>&nbsp;About</h1>
+
+<div style="margin: 3% auto; max-width: 800px; text-align: center; font-size: 0.9rem; color: #90A4AE; line-height: 1.6;">
+    <p>このページでは、エンジニアを目指す学生が学んだことや迷ったこと、</p>
+    <p>気づいたことを記録しています。温かく見守っていただけると幸いです。</p>
+    <p>内容に誤りや改善点があれば、そっとお知らせいただければ嬉しいです。</p>
+</div>
+<div style="display: block;">
+<a href="{% url "blog_dice:about_me" %}"
+   style="display: inline-block;
+          margin: 1.5rem auto;
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+          color: #4FC3F7;
+          text-decoration: none;
+          border: 1px solid #4FC3F7;
+          border-radius: 8px;
+          background-color: #37474F;
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)';
+                this.style.backgroundColor='#455A64';
+                this.style.color='#81D4FA';
+                this.style.borderColor='#81D4FA';"
+   onmouseout="this.style.transform='translateY(0)';
+               this.style.backgroundColor='#37474F';
+               this.style.color='#4FC3F7';
+               this.style.borderColor='#4FC3F7';">
+    <i class="fa-solid fa-address-card fa-lg"></i>
+    &nbsp;Who Am I ?
+</a>
+
+    <a href="{% url "blog_dice:product" %}"
+       style="display: inline-block;
+          margin: 1.5rem auto;
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+          color: #4FC3F7;
+          text-decoration: none;
+          border: 1px solid #4FC3F7;
+          border-radius: 8px;
+          background-color: #37474F;
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='#455A64'; this.style.color='#81D4FA'; this.style.borderColor='#81D4FA';"
+   onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='#37474F'; this.style.color='#4FC3F7'; this.style.borderColor='#4FC3F7';">
+
+        <i class="fa-solid fa-star fa-lg"></i>
+        &nbsp;Products
+    </a>
+
+    <a href="{% url 'blog_dice:page_list' %}"
+       style="display: inline-block;
+          margin: 1.5rem auto;
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+          font-weight: bold;
+          color: #4FC3F7;
+          text-decoration: none;
+          border: 1px solid #4FC3F7;
+          border-radius: 8px;
+          background-color: #37474F;
+          transition: all 0.2s ease;"
+   onmouseover="this.style.transform='translateY(-2px)'; this.style.backgroundColor='#455A64'; this.style.color='#81D4FA'; this.style.borderColor='#81D4FA';"
+   onmouseout="this.style.transform='translateY(0)'; this.style.backgroundColor='#37474F'; this.style.color='#4FC3F7'; this.style.borderColor='#4FC3F7';">
+
+        <i class="fa-solid fa-book fa-lg"></i>
+        &nbsp;Memos
+    </a>
+
+</div>
+
+<script>
+    // const link = document.querySelector('a');
+    // link.addEventListener('mouseover', function() {
+    //     this.style.backgroundColor = '#4FC3F7';
+    //     this.style.color = '#37474F';
+    // });
+
+    // link.addEventListener('mouseout', function() {
+    //     this.style.backgroundColor = '#37474F';
+    //     this.style.color = '#4FC3F7';
+    // });
+</script>
 
 {% endblock content %}
