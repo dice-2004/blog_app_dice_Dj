@@ -14,7 +14,7 @@ def get_notion_api_key():#config.iniからapi_keyを取得する
     # config = configparser.ConfigParser()
     # config.read('./config.ini')
     # api_key = config['DEFAULT']['API_KEY']
-    api_key=secret_DvZRaCW9gMv7FCiFj2NlTU0jHRcPqiIBgdu0TzaRFh4
+    api_key="here"
     client=Client(auth=api_key)
     return client
 
